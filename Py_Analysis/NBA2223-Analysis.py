@@ -12,8 +12,11 @@ import numpy as np
 
 import sys
 
-# for arg in sys.argv:
-#     print(arg)
+print("HERE!! A")
+
+
+for arg in sys.argv:
+    print(arg)
 
 if len(sys.argv) > 1:
     file_path = sys.argv[1].replace('\\', '\\\\')
@@ -30,6 +33,7 @@ team = "\'" + "DEN" + "\'"
 print(data.query(f"Tm == {team}"))
 
 '''
+print("HERE!!")
 if len(sys.argv) > 2:
     if sys.argv[2] == "GET_TEAMS":
         print((list(data.get('Tm').drop_duplicates())).sort())
@@ -37,6 +41,8 @@ if len(sys.argv) > 2:
         team = sys.argv[3]
         print(data.query(f"Tm == {team}"))
 
+'''
+# Code to produce scatter plot of players w/ more than 24 pts/game (a.k.a. 'shooters')
 
 shooters = data.loc[data['PTS'] > 24]
 young_shooters = shooters.loc[shooters['Age'] < 28]
@@ -50,6 +56,8 @@ for i, txt in enumerate(n):
     plt.annotate(txt, xy=(z[i], y[i]), fontsize=5)
 plt.savefig("graph.svg")
 plt.show()
+'''
+
 # plt.scatter(young_shooters.get('FGA'), young_shooters.get('PTS'))
 # plt.show()
 

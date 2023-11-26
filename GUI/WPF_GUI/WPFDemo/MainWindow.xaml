@@ -29,16 +29,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ScrollBar x:Name="rightScrollBar"
-                   Orientation="Vertical"
-                   Minimum="1" Maximum="100"
-                   Scroll="OnScroll"/>
-
-        <ScrollBar x:Name="bottomScrollBar"
-                   Orientation="Horizontal"
-                   Minimum="1" Maximum="100"
-                   Scroll="OnScroll"/>
-
         <TextBlock Grid.Column="1" Grid.Row="1" FontSize="36" 
                    Text="File Selection" Grid.ColumnSpan="4"
                    Margin="0, 0, 0, 10" TextDecorations="Underline" HorizontalAlignment="Center"/>
@@ -55,24 +45,24 @@
         <Button x:Name="getTeamsButton" Content="Get Team Names"
                 Grid.Column="1" Grid.Row="3" 
                 Click="getTeamsButton_Click"/>
-        <TextBox x:Name="teamsTextBox" 
-                 Grid.Column="2" Grid.Row="3" />
         <ComboBox x:Name="teamsComboBox"
-                  Grid.Column="3" Grid.Row="3">
-            
+                  Grid.Column="2" Grid.Row="3">
         </ComboBox>
 
+        <Button x:Name="getHeadingsButton" Content="Get Column Headings"
+                Grid.Column="1" Grid.Row="4" Click="getHeadingsButton_Click"/>
+        <ComboBox x:Name="headingsComboBox" Grid.Column="2" Grid.Row="4"/>
 
         <Button x:Name="submitButton" Content="Run Analysis"
-                Grid.Column="1" Grid.Row="4" 
+                Grid.Column="1" Grid.Row="5" 
                 Click="submitButton_Click"/>
         <ComboBox x:Name="analysisComboBox" 
-                  Grid.Column="2" Grid.Row="4">
+                  Grid.Column="2" Grid.Row="5">
             
         </ComboBox>
 
         <TextBox x:Name="tempTextBox" 
-                 Grid.Column="2" Grid.Row="5" />
+                 Grid.Column="2" Grid.Row="6" />
 
 
     </Grid>
