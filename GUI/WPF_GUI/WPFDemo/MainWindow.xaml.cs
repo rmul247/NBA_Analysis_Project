@@ -51,7 +51,7 @@ namespace WPFDemo
         {
             //string analysisFilePath = @"C:\Users\Andrew Mulcahy\Documents\Programming\Data\NBAPlayerStats2223\2022-2023 NBA Player Stats - Regular.csv";
             string pythonPath = @"C:\Users\Andrew Mulcahy\AppData\Local\Programs\Python\Python312\python.exe";
-            string analysisScriptPath = @"C:\Users\Andrew Mulcahy\Documents\Programming\Python\NBA2223-Analysis.py";
+            string analysisScriptPath = @"C:\Users\Andrew Mulcahy\Documents\Programming\Projects\NBAData_WPF_Py\Py_Analysis\NBA2223-Analysis.py";
             string argsForPython = String.Empty;
 
             string additionalSelection = "";

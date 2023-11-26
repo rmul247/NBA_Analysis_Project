@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = WPFDemo
-build_property.ProjectDir = C:\Users\Andrew Mulcahy\Documents\Programming\C#\Lon Course\WPFDemo\WPFDemo\
+build_property.ProjectDir = C:\Users\Andrew Mulcahy\Documents\Programming\Projects\NBAData_WPF_Py\GUI\WPF_GUI\WPFDemo\

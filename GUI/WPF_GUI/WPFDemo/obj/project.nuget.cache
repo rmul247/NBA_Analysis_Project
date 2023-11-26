@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Juod/PvFLFy6v5YvOV3o93XBzacunu1GtNQyk8jMmyz1OIvMMZnjqbCp1Y2jMkAUZAnWAQ4dCluUB2+q6WJfjQ==",
+  "dgSpecHash": "cLvTzXv1icXLyhcoSv1P8u8jrO23bB9Otl2uSGCMxKHHVpsvtRyz6/hnw7FfDWvuCw9PT67m1oWuWWEF6EoVrg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Andrew Mulcahy\\Documents\\Programming\\C#\\Lon Course\\WPFDemo\\WPFDemo\\WPFDemo.csproj",
+  "projectFilePath": "C:\\Users\\Andrew Mulcahy\\Documents\\Programming\\Projects\\NBAData_WPF_Py\\GUI\\WPF_GUI\\WPFDemo\\WPFDemo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andrew Mulcahy\\.nuget\\packages\\caliburn.micro\\4.0.212\\caliburn.micro.4.0.212.nupkg.sha512",
     "C:\\Users\\Andrew Mulcahy\\.nuget\\packages\\caliburn.micro.core\\4.0.212\\caliburn.micro.core.4.0.212.nupkg.sha512",
