@@ -34,35 +34,32 @@ namespace WPFDemo
 
         private void run_cmd(string analysisType)
         {
-            /*
             // *************************************
             // p_cmd for debugging purposes only
             // *****************************************
-            string argsForCMD = "/k python " + "\"" + analysisScriptPath + "\"" + " " + "\"" + filePathText.Text + "\"" + " " + analysisType;
-            Console.WriteLine($"Args for cmd: {argsForCMD}");
-            
-            
-            Process p_cmd = new Process();
-            p_cmd.StartInfo = new ProcessStartInfo("CMD.exe", argsForCMD)
             {
-                RedirectStandardOutput = true,
-                UseShellExecute = false//,
-                //CreateNoWindow = true
-            };
-            //p_cmd.Start();
-            */
+                string argsForCMD = getProcessArgs(analysisType, "debug");
 
-
-
+                Process p_cmd = runScript(argsForCMD, "debug");
+                //Process p_cmd = new Process();
+                //p_cmd.StartInfo = new ProcessStartInfo("CMD.exe", argsForCMD)
+                //{
+                //    RedirectStandardOutput = true,
+                //    UseShellExecute = false//,
+                //    //CreateNoWindow = true
+                //};
+                p_cmd.Start();
+                //p_cmd.WaitForExit();
+                
+            }
 
             // ****************************************
             // p_pyt is the correct (hopefully) version
             // *****************************************
 
+            string argsForPython = getProcessArgs(analysisType, "python");
 
-            string argsForPython = getProcessArgs(analysisType);
-
-            Process p_pyt = callPythonScript(argsForPython);
+            Process p_pyt = runScript(argsForPython, "python");
             p_pyt.Start();
 
             char[] spliter = { ';' };
@@ -75,58 +72,75 @@ namespace WPFDemo
 
         }
 
-        private string getProcessArgs(string analysisType) 
+        private string getProcessArgs(string analysisType, string mode) 
         {
-            string argsForPython = String.Empty;
+            string processArgs = String.Empty;
             string analysisScriptPath = @"C:\Users\Andrew Mulcahy\Documents\Programming\Python\NBA2223-Analysis.py";
+            if (mode == "debug")
+                processArgs += "/k python ";
 
-            string additionalSelection = "";
-            if (analysisType == "SUMMARISE_TEAM")
+            if (analysisType == "RUN_ANALYSIS")
             {
-                additionalSelection = teamsComboBox.Text;
-                argsForPython += "\"" + analysisScriptPath + "\"" + " " + "\"" + filePathText.Text + "\"" + " " + analysisType + " " + additionalSelection;
+                processArgs += "\"" + analysisScriptPath + "\" \"" + filePathText.Text + "\" " + analysisType + " " + headingsComboBox.Text + " " + analysisComboBox.Text + " " + tempTextBox.Text;
             }
             else
             {
-                argsForPython += "\"" + analysisScriptPath + "\"" + " " + "\"" + filePathText.Text + "\"" + " " + analysisType;
+                processArgs += "\"" + analysisScriptPath + "\"" + " " + "\"" + filePathText.Text + "\"" + " " + analysisType;
             }
 
-            return argsForPython;
+            return processArgs;
         }
 
+        private Process runScript(string argsForProcess, string mode)
+        {
+            string processPath = String.Empty;
+            if (mode == "debug")
+                processPath = "CMD.exe";
+            else
+                processPath = @"C:\Users\Andrew Mulcahy\AppData\Local\Programs\Python\Python312\python.exe";
+
+            Process myProcess = new Process();
+            myProcess.StartInfo = new ProcessStartInfo(processPath, argsForProcess)
+            {
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = false
+            };
+            return myProcess;
+        }
+        
         private void processOutput(string analysisType, string[] output)
         {
             if (analysisType == "GET_TEAMS")
             {
-                //char[] trimChars = { '[', ']' };
-                //string[] teamsArray = output[0].Trim().Trim(trimChars).Split(", ");
                 string[] teamsArray = cleanPythonData(output);
                 foreach (string team in teamsArray)
-                {
                     teamsList.Add(team);
-                }
                 teamsComboBox.ItemsSource = teamsList;
             }
-
 
             if (analysisType == "GET_HEADINGS")
             {
                 string[] headingsArray = cleanPythonData(output);
-                foreach (string team in headingsArray)
+                foreach (string heading in headingsArray)
                 {
-                    headingsList.Add(team);
+                    //char[] trimChars = { ' ', '\'' };
+                    string nakedHeadings = heading.Trim('\'');
+                    headingsList.Add(nakedHeadings);
+
                 }
                 headingsComboBox.ItemsSource = headingsList;
             }
 
-
-            if (analysisType == "SUMMARISE_TEAM")
+            if (analysisType == "RUN_ANALYSIS")
             {
-
+                StringBuilder stringBuilder1 = new StringBuilder();
                 foreach (string s in output)
                 {
-                    tempTextBox.Text += s + Environment.NewLine;
+                    //tempTextBox.Text += s + Environment.NewLine;
+                    stringBuilder1.Append(s);
                 }
+                MessageBox.Show(stringBuilder1.ToString());
             }
         }
 
@@ -137,18 +151,12 @@ namespace WPFDemo
             return teamsArray;
         }
 
-        private Process callPythonScript(string argsForPython)
+        private void updateAnalysisOperatorComboBox(string heading)
         {
-            string pythonPath = @"C:\Users\Andrew Mulcahy\AppData\Local\Programs\Python\Python312\python.exe";
-
-            Process p_pyt = new Process();
-            p_pyt.StartInfo = new ProcessStartInfo(pythonPath, argsForPython)
-            {
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            return p_pyt;
+            if ((heading == "'Pos'") || (heading == "'Tm'"))
+                analysisComboBox.ItemsSource = new List<String>{ "==" };
+            else
+                analysisComboBox.ItemsSource = new List<String> { "==", ">", ">=", "<", "<=", "!="};
         }
 
         // Button click event handlers
@@ -159,20 +167,24 @@ namespace WPFDemo
                 filePathText.Text = openFileDialog.FileName;
         }
 
-        private void getTeamsButton_Click(object sender, RoutedEventArgs e)
+        private void runAnalysisButton_Click(object sender, RoutedEventArgs e)
         {
-            run_cmd("GET_TEAMS");
+            run_cmd("RUN_ANALYSIS");
         }
 
-        private void getHeadingsButton_Click(object sender, RoutedEventArgs e)
+        // File changed event handler
+        private void filePathText_TextChanged(object sender, TextChangedEventArgs e)
         {
+            run_cmd("GET_TEAMS");
             run_cmd("GET_HEADINGS");
         }
 
-        private void submitButton_Click(object sender, RoutedEventArgs e)
+        // heading selected event
+        private void headingsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            run_cmd("SUMMARISE_TEAM");
+            string newText = (sender as ComboBox).SelectedItem as string;
+            analysisHeadingTextBlock.Text = newText;
+            updateAnalysisOperatorComboBox(newText);
         }
-
     }
 }

@@ -36,28 +36,28 @@
         <TextBlock Grid.Column="1" Grid.Row="2" FontWeight="SemiBold"
                    Text="Enter File Path:" FontFamily="Segoe UI"/>
         <TextBox x:Name="filePathText" Grid.Column="2" Grid.Row="2"
-                 Grid.ColumnSpan="1"
-                 Width="350" Margin="10, 0, 0, 0" />
+                 Grid.ColumnSpan="2"
+                 Width="350" Margin="10, 0, 0, 0" 
+                 TextChanged="filePathText_TextChanged" />
         <Button x:Name="browseButton" Content="Browse..."
-                Grid.Column="3" Grid.Row="2" 
+                Grid.Column="4" Grid.Row="2" Width="100"
                 Margin="10,0" Click="browseButton_Click"/>
 
-        <Button x:Name="getTeamsButton" Content="Get Team Names"
-                Grid.Column="1" Grid.Row="3" 
-                Click="getTeamsButton_Click"/>
+        <TextBlock x:Name="teamsTextBlock" Text="Team Names: "
+                Grid.Column="1" Grid.Row="3" />
         <ComboBox x:Name="teamsComboBox"
-                  Grid.Column="2" Grid.Row="3">
-        </ComboBox>
+                  Grid.Column="2" Grid.Row="3"/>
+        <TextBlock x:Name="headingsTextBlock" Text="Column Headings:   "
+                   Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" />
+        <ComboBox x:Name="headingsComboBox" Grid.Column="4" Grid.Row="3" SelectionChanged="headingsComboBox_SelectionChanged"/>
 
-        <Button x:Name="getHeadingsButton" Content="Get Column Headings"
-                Grid.Column="1" Grid.Row="4" Click="getHeadingsButton_Click"/>
-        <ComboBox x:Name="headingsComboBox" Grid.Column="2" Grid.Row="4"/>
-
-        <Button x:Name="submitButton" Content="Run Analysis"
-                Grid.Column="1" Grid.Row="5" 
-                Click="submitButton_Click"/>
+        <Button x:Name="runAnalysisButton" Content="Run Analysis on: "
+                Grid.Column="1" Grid.Row="4" 
+                Click="runAnalysisButton_Click" />
+        <TextBlock x:Name="analysisHeadingTextBlock" Text="*Select heading*"
+                   Grid.Column="2" Grid.Row="4"/>
         <ComboBox x:Name="analysisComboBox" 
-                  Grid.Column="2" Grid.Row="5">
+                  Grid.Column="3" Grid.Row="4">
             
         </ComboBox>
 
